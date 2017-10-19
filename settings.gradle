@@ -1,0 +1,8 @@
+rootProject.name = 'springboot-dubbo'
+include 'api'
+include 'consume'
+include 'provide'
+include 'consumer'
+include 'producer'
+include 'provider'
+
