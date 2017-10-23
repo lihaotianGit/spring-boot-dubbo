@@ -14,7 +14,7 @@ group 'springboot-dubbo'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
-apply plugin: 'spring-boot'
+apply plugin: 'org.springframework.boot'
 apply plugin: 'maven'
 
 sourceCompatibility = 1.8

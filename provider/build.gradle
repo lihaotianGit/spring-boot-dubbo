@@ -10,11 +10,16 @@ buildscript {
     }
 }
 
+plugins {
+    id "org.flywaydb.flyway" version "4.0.3"
+}
+apply from: "${projectDir}/flyway.gradle"
+
 group "springboot-dubbo"
 version "1.0-SNAPSHOT"
 
 apply plugin: "java"
-apply plugin: "spring-boot"
+apply plugin: "org.springframework.boot"
 apply plugin: "maven"
 
 sourceCompatibility = 1.8
