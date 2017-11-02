@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 
 @RestController
-public class HelloResource {
+public class HelloEndPoint {
 
-    private final static Logger logger = Logger.getLogger(HelloResource.class);
+    private final static Logger logger = Logger.getLogger(HelloEndPoint.class);
 
     @Resource
     private HelloService helloService;

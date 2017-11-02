@@ -33,6 +33,7 @@ ext {
     zookeeperVersion = "3.4.9"
     zkclientVersion = "0.2"
     springBootLog4jStarterVersion = "1.2.1.RELEASE"
+    rsVersion = "2.0"
 }
 
 dependencies {
@@ -54,6 +55,8 @@ dependencies {
         exclude(module: "log4j-over-slf4j")
         exclude(module: "logback-classic")
     }
+
+    compile "javax.ws.rs:javax.ws.rs-api:$rsVersion"
 
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
