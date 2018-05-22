@@ -2,3 +2,6 @@ rootProject.name = 'springboot-dubbo'
 include 'api'
 include 'consumer'
 include 'provider'
+include 'scheduler'
+include 'utils'
+

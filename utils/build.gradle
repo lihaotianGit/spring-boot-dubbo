@@ -1,0 +1,38 @@
+buildscript {
+    repositories {
+        jcenter()
+        mavenCentral()
+        maven { url "http://repo.spring.io/snapshot" }
+        maven { url "http://repo.spring.io/milestone" }
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.4.7.RELEASE")
+    }
+}
+
+group 'springboot-dubbo'
+version '1.0-SNAPSHOT'
+
+apply plugin: "java"
+apply plugin: "org.springframework.boot"
+apply plugin: "maven"
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+ext {
+    collectionVersion = '1.0'
+    jacksonVersion = '1.9.13'
+    springBootLog4jStarterVersion = "1.2.1.RELEASE"
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile "com.google.collections:google-collections:$collectionVersion"
+    compile "org.codehaus.jackson:jackson-mapper-asl:$jacksonVersion"
+    compile "org.springframework.boot:spring-boot-starter-log4j:$springBootLog4jStarterVersion"
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
