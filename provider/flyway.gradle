@@ -1,10 +1,10 @@
 flyway {
     driver = 'com.mysql.jdbc.Driver'
-    url = "jdbc:mysql://127.0.0.1:3307/springboot-dubbo?zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&characterEncoding=UTF-8"
+    url = "jdbc:mysql://127.0.0.1:3307/spring-boot-dubbo?zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&characterEncoding=UTF-8"
     user = 'mysql'
     password = 'mysql'
-    schemas = ['springboot-dubbo']
-    table = 'springboot_dubbo_schema_version'
+    schemas = ['spring-boot-dubbo']
+    table = 'spring_boot_dubbo_schema_version'
     locations = ["filesystem:${projectDir}/src/main/resources/migration"]
     sqlMigrationPrefix = 'MySQL-'
 }

@@ -16,6 +16,5 @@
     <dubbo:protocol name="${dubbo.protocol.name}" port="${dubbo.protocol.port}"/>
 
     <!-- 生成远程服务代理，可以和本地bean一样使用 -->
-    <dubbo:service interface="cn.imlht.springboot.dubbo.api.HelloService" ref="helloService" retries="0" timeout="60000"/>
-    <dubbo:service interface="cn.imlht.springboot.dubbo.api.UserService" ref="userService" retries="0" timeout="60000"/>
+    <dubbo:service interface="cn.imlht.springboot.dubbo.api.StockService" ref="stockService" retries="0" timeout="60000"/>
 </beans>

@@ -1,4 +1,4 @@
-rootProject.name = 'springboot-dubbo'
+rootProject.name = 'spring-boot-dubbo'
 include 'api'
 include 'consumer'
 include 'provider'

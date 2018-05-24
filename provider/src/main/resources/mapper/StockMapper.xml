@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.imlht.springboot.dubbo.provider.mapper.StockMapper">
+
+    <select id="findStockNum" resultType="int">
+        SELECT STOCK_NUM FROM STOCK WHERE ID = #{stockId}
+    </select>
+
+    <update id="updateStockNum">
+        UPDATE STOCK SET STOCK_NUM = (STOCK_NUM - #{buyNum}), SALE_NUM = (SALE_NUM + #{buyNum}) WHERE ID = #{stockId} AND (STOCK_NUM - #{buyNum}) >= 0;
+    </update>
+
+</mapper>

@@ -2,10 +2,10 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.3//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
     <typeAliases>
-        <typeAlias alias="user" type="cn.imlht.springboot.dubbo.domain.User"/>
     </typeAliases>
 
     <mappers>
-        <mapper resource="mapper/UserMapper.xml"/>
+        <mapper resource="mapper/StockMapper.xml"/>
+        <mapper resource="mapper/StockOrderMapper.xml"/>
     </mappers>
 </configuration>
