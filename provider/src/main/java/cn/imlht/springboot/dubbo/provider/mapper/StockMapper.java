@@ -4,7 +4,7 @@ import org.apache.ibatis.annotations.Param;
 
 public interface StockMapper {
 
-    int findStockNum(@Param("stockId") long stockId);
+    long findStockNum(@Param("stockId") long stockId);
 
     int updateStockNum(@Param("stockId") long stockId, @Param("buyNum") int buyNum);
 

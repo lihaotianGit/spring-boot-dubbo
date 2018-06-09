@@ -63,4 +63,15 @@ public class StockOrder implements Serializable {
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
+
+    @Override
+    public String toString() {
+        return "StockOrder{" +
+                "id=" + id +
+                ", stockId=" + stockId +
+                ", userId=" + userId +
+                ", buyNum=" + buyNum +
+                ", createTime=" + createTime +
+                '}';
+    }
 }

@@ -16,9 +16,15 @@ public class StockEndpoint {
     @Resource
     private StockService stockService;
 
-    @PostMapping
-    public String sale(@RequestBody StockOrder stockOrder) {
+    @PostMapping("mysql")
+    public String saleMysql(@RequestBody StockOrder stockOrder) {
         stockService.sale(stockOrder);
+        return "success";
+    }
+
+    @PostMapping("redis")
+    public String saleRedis(@RequestBody StockOrder stockOrder) {
+        stockService.saleRedis(stockOrder);
         return "success";
     }
 

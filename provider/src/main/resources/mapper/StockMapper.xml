@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.imlht.springboot.dubbo.provider.mapper.StockMapper">
 
-    <select id="findStockNum" resultType="int">
+    <select id="findStockNum" resultType="long">
         SELECT STOCK_NUM FROM STOCK WHERE ID = #{stockId}
     </select>
 

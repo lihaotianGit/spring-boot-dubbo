@@ -42,6 +42,7 @@ ext {
     mysqlCommectorVersion = "5.1.39"
     springBootLog4jStarterVersion = "1.2.1.RELEASE"
     curatorVersion = "4.0.1"
+    onsClientVersion = "1.2.7.Final"
 }
 
 dependencies {
@@ -72,10 +73,7 @@ dependencies {
         exclude(module: "logback-classic")
     }
     compile "mysql:mysql-connector-java:$mysqlCommectorVersion"
-
-    compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.9.5'
-    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.5'
-    compile group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.9.5'
+    compile "com.aliyun.openservices:ons-client:$onsClientVersion"
 
     testCompile "org.springframework.boot:spring-boot-starter-test:$springBootStarterVersion"
 }
