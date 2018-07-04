@@ -1,5 +1,6 @@
 package cn.imlht.springboot.dubbo.provider.config;
 
+import cn.imlht.springboot.dubbo.provider.exception.OutOfStockException;
 import cn.imlht.springboot.dubbo.provider.mq.MessageHandlerFactory;
 import com.aliyun.openservices.ons.api.*;
 import org.apache.log4j.Logger;
@@ -43,7 +44,12 @@ public class RocketMQConfig {
             try {
                 messageHandlerFactory.getHandler(message.getTag()).handle(message, context);
                 return Action.CommitMessage;
+            } catch (OutOfStockException e) {
+                // 如果是库存不够就消费掉消息
+                logger.error("Out of stock. ");
+                return Action.CommitMessage;
             } catch (Exception e) {
+                // TODO: 记得测试在这里catch异常会不会影响事务
                 logger.error("Consume message error. ", e);
                 return Action.ReconsumeLater;
             }

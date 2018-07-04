@@ -20,7 +20,7 @@ public class SaleHandler implements MessageHandler {
     @Override
     public void handle(Message message, ConsumeContext context) {
         StockOrder stockOrder = JsonHelper.toObject(new String(message.getBody(), Charset.forName("UTF-8")), StockOrder.class);
-        stockService.sale(stockOrder);
+        stockService.saleMysql(stockOrder);
     }
 
 }

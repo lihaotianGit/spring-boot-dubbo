@@ -4,7 +4,7 @@ import cn.imlht.springboot.dubbo.domain.StockOrder;
 
 public interface StockService {
 
-    void sale(StockOrder stockOrder);
+    void saleMysql(StockOrder stockOrder);
 
     void saleRedis(StockOrder stockOrder);
 }

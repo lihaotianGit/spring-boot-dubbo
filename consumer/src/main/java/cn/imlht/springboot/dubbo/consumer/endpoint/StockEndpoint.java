@@ -18,7 +18,7 @@ public class StockEndpoint {
 
     @PostMapping("mysql")
     public String saleMysql(@RequestBody StockOrder stockOrder) {
-        stockService.sale(stockOrder);
+        stockService.saleMysql(stockOrder);
         return "success";
     }
 

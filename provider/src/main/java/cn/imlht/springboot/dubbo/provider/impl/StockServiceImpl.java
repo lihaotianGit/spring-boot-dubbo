@@ -2,6 +2,7 @@ package cn.imlht.springboot.dubbo.provider.impl;
 
 import cn.imlht.springboot.dubbo.api.StockService;
 import cn.imlht.springboot.dubbo.domain.StockOrder;
+import cn.imlht.springboot.dubbo.provider.exception.OutOfStockException;
 import cn.imlht.springboot.dubbo.provider.mapper.StockMapper;
 import cn.imlht.springboot.dubbo.provider.mapper.StockOrderMapper;
 import cn.imlht.springboot.dubbo.provider.mq.Tag;
@@ -28,6 +29,9 @@ public class StockServiceImpl implements StockService {
     @Value("${ons.client.topicStock}")
     private String topic;
 
+    @Value("${redis.keys.stock.sale.num}")
+    private String saleNumKey;
+
     @Resource
     private StockMapper stockMapper;
 
@@ -35,7 +39,7 @@ public class StockServiceImpl implements StockService {
     private StockOrderMapper stockOrderMapper;
 
     @Resource(name="redisTemplate")
-    private ValueOperations<String, Object> valueOperations;
+    private ValueOperations<String, String> valueOperations;
 
     @Resource
     private RedisTemplate redisTemplate;
@@ -45,15 +49,15 @@ public class StockServiceImpl implements StockService {
 
     @Override
     @Transactional
-    public void sale(StockOrder stockOrder) {
+    public void saleMysql(StockOrder stockOrder) {
         long stockNum = stockMapper.findStockNum(stockOrder.getStockId());
         if (stockNum <= 0L) {
-            throw new RuntimeException("MySQL select: Out of stock!");
+            throw new OutOfStockException("MySQL select: Out of stock!");
         }
 
         int updateFlag = stockMapper.updateStockNum(stockOrder.getStockId(), stockOrder.getBuyNum());
         if (updateFlag < 1) {
-            throw new RuntimeException("MySQL update: Out of stock!");
+            throw new OutOfStockException("MySQL update: Out of stock!");
         }
 
         int saveFlag = stockOrderMapper.save(stockOrder);
@@ -66,9 +70,9 @@ public class StockServiceImpl implements StockService {
 
     @Override
     public void saleRedis(StockOrder stockOrder) {
-//        redisTemplate.execute();
-        if (valueOperations.increment("stock:sale:num", stockOrder.getBuyNum()) > stockNum.get(stockOrder.getStockId())) {
-            throw new RuntimeException("Redis incr: Out of stock!");
+
+        if (valueOperations.increment(saleNumKey, stockOrder.getBuyNum()) >= stockNum.get(stockOrder.getStockId())) {
+            throw new OutOfStockException("Redis incr: Out of stock!");
         } else {
             Message message = new Message(topic, Tag.SALE.name(), JSON.toJSONString(stockOrder).getBytes());
             producer.sendAsync(message, new SendCallback() {
