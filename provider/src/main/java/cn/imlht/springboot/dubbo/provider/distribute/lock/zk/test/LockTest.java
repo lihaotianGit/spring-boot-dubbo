@@ -1,4 +1,4 @@
-package cn.imlht.springboot.dubbo.provider.distribute.lock.test;
+package cn.imlht.springboot.dubbo.provider.distribute.lock.zk.test;
 
 import org.apache.zookeeper.ZooKeeper;
 

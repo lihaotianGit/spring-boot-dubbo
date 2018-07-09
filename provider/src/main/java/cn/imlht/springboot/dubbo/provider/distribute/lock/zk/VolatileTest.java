@@ -1,4 +1,4 @@
-package cn.imlht.springboot.dubbo.provider.distribute.lock;
+package cn.imlht.springboot.dubbo.provider.distribute.lock.zk;
 
 public class VolatileTest {
 
