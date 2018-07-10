@@ -6,6 +6,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
+import org.springframework.util.StringUtils;
+import redis.clients.jedis.JedisPool;
 
 @Configuration
 public class RedisConfig {
@@ -13,9 +15,9 @@ public class RedisConfig {
     private final static Logger logger = Logger.getLogger(RedisConfig.class);
 
     @Bean
-    public RedisTemplate<String, Object> redisTemplate(JedisConnectionFactory jedisConnectionFactory) {
+    public RedisTemplate<String, Object> redisTemplate(JedisConnectionFactory conn) {
         final RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
-        redisTemplate.setConnectionFactory(jedisConnectionFactory);
+        redisTemplate.setConnectionFactory(conn);
 
 //        RedisSerializer<String> redisSerializer = new StringRedisSerializer();
 //        redisTemplate.setKeySerializer(redisSerializer);
@@ -30,6 +32,15 @@ public class RedisConfig {
         redisTemplate.afterPropertiesSet();
         logger.info("RedisTemplate init success.");
         return redisTemplate;
+    }
+
+    @Bean
+    public JedisPool jedisPool(JedisConnectionFactory conn) {
+        if (StringUtils.isEmpty(conn.getPassword())) {
+            return new JedisPool(conn.getPoolConfig(), conn.getHostName(), conn.getPort(), conn.getTimeout());
+        } else {
+            return new JedisPool(conn.getPoolConfig(), conn.getHostName(), conn.getPort(), conn.getTimeout(), conn.getPassword());
+        }
     }
 
 }

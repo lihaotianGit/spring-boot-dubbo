@@ -12,6 +12,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.test.context.junit4.SpringRunner;
 import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -34,6 +35,9 @@ public class RedisTest {
 
     @Resource(name="redisTemplate")
     private ValueOperations<String, Object> valueOperations;
+
+    @Resource
+    private JedisPool jedisPool;
 
     @Test
     public void should_store() {
@@ -72,7 +76,7 @@ public class RedisTest {
 
         List<RedisThread> threads = new ArrayList<>();
         for (int i = 0; i < 100; i++) {
-            threads.add(new RedisThread(count, redisTemplate));
+            threads.add(new RedisThread(count, jedisPool.getResource(), 50));
         }
 
         for (Thread thread: threads) {
