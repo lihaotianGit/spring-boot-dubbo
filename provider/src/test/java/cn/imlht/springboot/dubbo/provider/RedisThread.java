@@ -20,7 +20,7 @@ public class RedisThread extends Thread {
     public void run() {
         RedisDistributedLock lock = new RedisDistributedLock(jedis, "lock", lockExpired);
         lock.lock();
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 1000; i++) {
             count.incr();
         }
         lock.unlock();

@@ -34,7 +34,7 @@ public class RedisDistributedLock implements Lock {
     private final static int BLOCK_MILLISECONDS = 100;
     private final static String UNLOCK_SCRIPT = "if redis.call('get', KEYS[1]) == ARGV[1] then return redis.call('del', KEYS[1]) else return 0 end";
 
-    private ExtendThread extendThread;
+    private LockExtendThread lockExtendThread;
 
     private boolean locked = false;
 
@@ -43,7 +43,7 @@ public class RedisDistributedLock implements Lock {
         this.lockName = lockName;
         this.uuid = UUID.randomUUID().toString();
         this.lockExpiredMilliseconds = lockExpiredMilliseconds;
-        this.extendThread = new ExtendThread(jedis, lockName, uuid, lockExpiredMilliseconds);
+        this.lockExtendThread = new LockExtendThread(jedis, lockName, uuid, lockExpiredMilliseconds);
     }
 
     /**
@@ -74,8 +74,7 @@ public class RedisDistributedLock implements Lock {
      */
     @Override
     public boolean tryLock() {
-        String lockResult = jedis.set(lockName, uuid, "NX", "PX", lockExpiredMilliseconds);
-        if (LOCKED.equals(lockResult)) {
+        if (LOCKED.equals(jedis.set(lockName, uuid, "NX", "PX", lockExpiredMilliseconds))) {
             extendLock();
             logger.info(printInfo("Locked"));
             locked = true;
@@ -89,7 +88,7 @@ public class RedisDistributedLock implements Lock {
      * 锁续期
      */
     private void extendLock() {
-        extendThread.start();
+        lockExtendThread.start();
     }
 
     /**
@@ -120,8 +119,7 @@ public class RedisDistributedLock implements Lock {
             if (this.tryLock()) {
                 return true;
             } else {
-                long now = System.currentTimeMillis();
-                if (Long.compare(time, 0L) != 0 && Long.compare(now - start, unit.toMillis(time)) >= 0) {
+                if (Long.compare(time, 0L) != 0 && Long.compare(System.currentTimeMillis() - start, unit.toMillis(time)) >= 0) {
                     return false;
                 } else {
                     logger.info(printInfo("Wait"));
@@ -140,14 +138,15 @@ public class RedisDistributedLock implements Lock {
      */
     @Override
     public void unlock() {
-        Object delLockResult = jedis.eval(UNLOCK_SCRIPT, singletonList(lockName), singletonList(uuid));
-        if (UNLOCKED.equals(String.valueOf(delLockResult))) {
-            extendThread.interrupt();
+        if (UNLOCKED.equals(String.valueOf(jedis.eval(UNLOCK_SCRIPT, singletonList(lockName), singletonList(uuid))))) {
             logger.info(printInfo("Unlocked"));
         } else {
             logger.error(printInfo("Unlock Failed"));
             throw new UnmatchedLockException(printInfo("Unmatched lock") + " redis lock value: " + jedis.get(lockName));
         }
+        locked = false;
+        // 中断锁续期线程
+        lockExtendThread.interrupt();
     }
 
     @Override

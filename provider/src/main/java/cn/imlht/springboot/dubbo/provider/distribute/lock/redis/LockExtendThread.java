@@ -5,16 +5,16 @@ import redis.clients.jedis.Jedis;
 
 import java.util.concurrent.TimeUnit;
 
-public class ExtendThread extends Thread {
+public class LockExtendThread extends Thread {
 
-    private final static Logger logger = Logger.getLogger(ExtendThread.class);
+    private final static Logger logger = Logger.getLogger(LockExtendThread.class);
 
     private Jedis jedis;
     private String uuid;
     private String lockName;
     private long lockExpiredMilliseconds;
 
-    ExtendThread(Jedis jedis, String lockName, String uuid, long lockExpiredMilliseconds) {
+    LockExtendThread(Jedis jedis, String lockName, String uuid, long lockExpiredMilliseconds) {
         this.uuid = uuid;
         this.jedis = jedis;
         this.lockName = lockName;

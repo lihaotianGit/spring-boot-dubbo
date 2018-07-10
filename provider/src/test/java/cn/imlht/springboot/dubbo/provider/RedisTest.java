@@ -75,8 +75,8 @@ public class RedisTest {
         ExecutorService executorService = Executors.newFixedThreadPool(80);
 
         List<RedisThread> threads = new ArrayList<>();
-        for (int i = 0; i < 100; i++) {
-            threads.add(new RedisThread(count, jedisPool.getResource(), 50));
+        for (int i = 0; i < 120; i++) {
+            threads.add(new RedisThread(count, jedisPool.getResource(), 600));
         }
 
         for (Thread thread: threads) {
