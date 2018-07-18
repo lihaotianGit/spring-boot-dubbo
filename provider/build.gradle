@@ -35,8 +35,8 @@ repositories {
 ext {
     springBootStarterVersion = "1.5.14.RELEASE"
     dubboVersion = "2.6.1"
-    zookeeperVersion = "3.4.9"
-    zkclientVersion = "0.2"
+    zookeeperVersion = "3.4.13"
+    zkclientVersion = "0.10"
     mybatisSpringBootStarterVersion = "1.3.0"
     mybatisVersion = "3.4.1"
     mysqlCommectorVersion = "5.1.39"

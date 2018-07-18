@@ -6,7 +6,7 @@ buildscript {
         maven { url "http://repo.spring.io/milestone" }
     }
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.4.7.RELEASE")
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.14.RELEASE")
     }
 }
 
@@ -23,7 +23,7 @@ targetCompatibility = 1.8
 ext {
     collectionVersion = '1.0'
     jacksonVersion = '1.9.13'
-    springBootLog4jStarterVersion = "1.2.1.RELEASE"
+    springBootLog4jStarterVersion = "1.3.8.RELEASE"
 }
 
 repositories {
