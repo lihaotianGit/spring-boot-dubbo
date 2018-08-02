@@ -49,7 +49,6 @@ public class RocketMQConfig {
                 logger.error("Out of stock. ");
                 return Action.CommitMessage;
             } catch (Exception e) {
-                // TODO: 记得测试在这里catch异常会不会影响事务
                 logger.error("Consume message error. ", e);
                 return Action.ReconsumeLater;
             }

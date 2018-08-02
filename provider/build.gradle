@@ -34,7 +34,7 @@ repositories {
 
 ext {
     springBootStarterVersion = "1.5.14.RELEASE"
-    dubboVersion = "2.6.1"
+    dubboVersion = "2.6.2"
     zookeeperVersion = "3.4.13"
     zkclientVersion = "0.10"
     mybatisSpringBootStarterVersion = "1.3.0"
@@ -53,6 +53,7 @@ dependencies {
     }
 
     compile "org.apache.curator:curator-framework:$curatorVersion"
+    compile "org.apache.curator:curator-recipes:$curatorVersion"
     compile ("org.apache.zookeeper:zookeeper:$zookeeperVersion") {
         exclude(module: "slf4j-log4j12")
     }
