@@ -1,4 +1,4 @@
-package cn.imlht.springboot.dubbo.provider.distribute.lock.zk;
+package cn.imlht.springboot.dubbo.provider.distribute.lock.zk.test;
 
 import cn.imlht.springboot.dubbo.provider.exception.OperationNotSupportedException;
 import org.apache.zookeeper.*;

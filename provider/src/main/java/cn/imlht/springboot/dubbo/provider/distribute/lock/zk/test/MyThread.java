@@ -1,6 +1,5 @@
 package cn.imlht.springboot.dubbo.provider.distribute.lock.zk.test;
 
-import cn.imlht.springboot.dubbo.provider.distribute.lock.zk.ZkDistributedLock;
 import org.apache.zookeeper.ZooKeeper;
 
 public class MyThread extends Thread {
