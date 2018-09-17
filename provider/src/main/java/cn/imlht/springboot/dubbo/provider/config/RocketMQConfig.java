@@ -15,7 +15,7 @@ import java.util.Properties;
 @Configuration
 public class RocketMQConfig {
 
-    private final static Logger logger = Logger.getLogger(RedisConfig.class);
+    private final static Logger logger = Logger.getLogger(RocketMQConfig.class);
 
     @Resource
     private MessageHandlerFactory messageHandlerFactory;
